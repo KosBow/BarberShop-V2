@@ -1,24 +1,19 @@
-
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider, Button } from "@material-tailwind/react";
+import NavBar from "./components/nav/NavBar";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeProvider>
+            <BrowserRouter>
+                <div className="App">
+                  <NavBar />
+                </div>
+            </BrowserRouter>
+        </ThemeProvider>
+    );
 }
 
 export default App;
+
