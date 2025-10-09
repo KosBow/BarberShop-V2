@@ -1,71 +1,56 @@
-﻿"use client"
+﻿"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react";
 
 export function NavBar() {
-    const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <nav className="border-b border-border bg-black">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between">
-                    <div className="flex items-center">
-                        <Link to="/" className="flex items-center gap-2">
-                            <span className="text-xl font-semibold text-white">Barbershop</span>
-                        </Link>
-                    </div>
-                    <div className="hidden md:block">
-                        <div className="flex items-center gap-8">
-                            <Link to="/" className="text-sm text-gray-300 hover:text-white transition-colors">
-                                Startsida
-                            </Link>
-                            <Link to="services" className="text-sm text-gray-300 hover:text-white transition-colors">
-                                Tjänster
-                            </Link>
-                            <Link to="contact" className="text-sm text-gray-300 hover:text-white transition-colors">
-                                Kontakt
-                            </Link>
-                            <Link to="about" className="text-sm text-gray-300 hover:text-white transition-colors">
-                                Om Oss
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <nav className="border-b border-border bg-black">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link to="/" className="flex items-center gap-2">
+              <span className="text-xl font-semibold text-white">Barbershop</span>
+            </Link>
+          </div>
+
+          {/* Desktop links */}
+          <div className="hidden md:block">
+            <div className="flex items-center gap-8">
+              <Link to="/" className="text-sm text-gray-300 hover:text-white transition-colors">Startsida</Link>
+              <Link to="/services" className="text-sm text-gray-300 hover:text-white transition-colors">Tjänster</Link>
+              <Link to="/kontakt" className="text-sm text-gray-300 hover:text-white transition-colors">Kontakt</Link>
+              <Link to="/om-oss" className="text-sm text-gray-300 hover:text-white transition-colors">Om Oss</Link>
             </div>
-            {isOpen && (
-                <div className="md:hidden border-t border-border bg-black">
-                    <div className="space-y-1 px-4 pb-3 pt-2">
-                        <Link
-                            to="#"
-                            className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white"
-                        >
-                            Startsida
-                        </Link>
-                        <Link
-                            to="#"
-                            className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white"
-                        >
-                            Tjänster
-                        </Link>
-                        <Link
-                            to="#"
-                            className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white"
-                        >
-                            Kontakt
-                        </Link>
-                        <Link
-                            to="#"
-                            className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white"
-                        >
-                            Om Oss
-                        </Link>
-                    </div>
-                </div>
-            )}
-        </nav>
-    )
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-white focus:outline-none"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden border-t border-border bg-black">
+          <div className="space-y-1 px-4 pb-3 pt-2">
+            <Link to="/" onClick={() => setIsOpen(false)} className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white">Startsida</Link>
+            <Link to="/services" onClick={() => setIsOpen(false)} className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white">Tjänster</Link>
+            <Link to="/kontakt" onClick={() => setIsOpen(false)} className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white">Kontakt</Link>
+            <Link to="/om-oss" onClick={() => setIsOpen(false)} className="block rounded-md px-3 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white">Om Oss</Link>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
 }
 
 export default NavBar;
