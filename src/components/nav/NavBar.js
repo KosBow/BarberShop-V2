@@ -18,16 +18,16 @@ export function NavBar() {
                     </div>
                     <div className="hidden md:block">
                         <div className="flex items-center gap-8">
-                            <Link to="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                            <Link to="/" className="text-sm text-gray-300 hover:text-white transition-colors">
                                 Startsida
                             </Link>
-                            <Link to="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                            <Link to="services" className="text-sm text-gray-300 hover:text-white transition-colors">
                                 Tjänster
                             </Link>
-                            <Link to="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                            <Link to="contact" className="text-sm text-gray-300 hover:text-white transition-colors">
                                 Kontakt
                             </Link>
-                            <Link to="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                            <Link to="about" className="text-sm text-gray-300 hover:text-white transition-colors">
                                 Om Oss
                             </Link>
                         </div>
