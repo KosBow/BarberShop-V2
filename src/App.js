@@ -2,10 +2,11 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-tailwind/react";
 import { NavBar } from "./components/nav/NavBar";
-import Home from "./pages/home/HomePage";
+import Home from "./pages/home";
 import Services from "./pages/services";
 import Contact from "./pages/contact";
 import About from "./pages/about";
+
 
 function App() {
   return (

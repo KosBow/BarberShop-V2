@@ -7,9 +7,9 @@ export default function About() {
     className="rounded-2xl shadow-lg w-full md:w-1/2 object-cover max-h-[400px]"
   />
   <div className="md:w-1/2 text-center md:text-left">
-    <h1 className="text-4xl font-bold mb-4">Om Elias Barbershop</h1>
+    <h1 className="text-4xl font-bold mb-4">Om AeA Barbershop</h1>
     <p className="text-gray-400 leading-relaxed">
-      Elias Barbershop är en modern salong i Linköping med fokus på kvalitet, stil och personlig service. 
+      AeA Barbershop  är en modern salong i Linköping med fokus på kvalitet, stil och personlig service. 
       Vår passion är att varje kund ska känna sig självsäker och fräsch – oavsett om det gäller en klassisk klippning eller en trendig fade.
     </p>
   </div>
