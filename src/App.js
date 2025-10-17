@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@material-tailwind/react";
+import { ThemeProvider } from "./context/ThemeContext";
 import { NavBar } from "./components/nav/NavBar";
 import Home from "./pages/home";
 import Services from "./pages/services";
