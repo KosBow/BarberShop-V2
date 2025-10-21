@@ -1,15 +1,168 @@
-export default function Contact() {
-  return (
-<section className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-4 py-16">
-  <h1 className="text-4xl font-bold mb-4">Kontakta Oss</h1>
-  <p className="text-gray-400 mb-8">Har du frågor eller vill boka tid? Hör av dig!</p>
-  <form className="flex flex-col gap-4 w-full max-w-md">
-    <input className="bg-neutral-900 p-3 rounded-lg border border-gray-700 focus:border-white outline-none" placeholder="Namn" />
-    <input className="bg-neutral-900 p-3 rounded-lg border border-gray-700 focus:border-white outline-none" placeholder="E-post" />
-    <textarea className="bg-neutral-900 p-3 rounded-lg border border-gray-700 focus:border-white outline-none" placeholder="Meddelande" rows="4"></textarea>
-    <button className="bg-white text-black font-semibold py-3 rounded-lg hover:bg-gray-200 transition-all">Skicka Meddelande</button>
-  </form>
-</section>
+import { useState } from "react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 
+export default function Contact() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState(null);
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm((s) => ({ ...s, [name]: value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) {
+      setStatus({
+        type: "error",
+        msg: "Fyll i minst Namn, E-post och Meddelande.",
+      });
+      return;
+    }
+    setStatus({ type: "ok", msg: "Tack! Vi återkommer så snart vi kan." });
+    setForm({ name: "", email: "", subject: "", message: "" });
+  }
+
+  const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+   transition: { duration: 1.3, delay, ease: "easeOut" },
+    viewport: { once: true },
+  });
+
+  return (
+    <main className="bg-black text-white overflow-hidden">
+      <motion.section
+        {...fadeUp(0)}
+        className="container mx-auto max-w-6xl px-4 pt-16 pb-6 text-center"
+      >
+        <h1 className="text-4xl font-bold">Kontakta Oss</h1>
+        <p className="text-gray-400 mt-2">
+          Har du frågor eller vill boka tid? Hör av dig!
+        </p>
+        <div className="h-1 w-14 bg-amber-400 rounded-full mx-auto mt-4" />
+      </motion.section>
+
+      <section className="container mx-auto max-w-6xl px-4 pb-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <motion.div
+          {...fadeUp(0.1)}
+          className="bg-neutral-900/60 border border-neutral-800 rounded-xl p-8"
+        >
+          <h2 className="text-xl font-semibold">Skicka ett meddelande</h2>
+          <p className="text-gray-400 text-sm mt-1">
+            Fyll i formuläret så återkommer vi så snart som möjligt.
+          </p>
+
+          <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+            <input
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              type="text"
+              placeholder="Namn"
+              className="w-full bg-neutral-950/70 border border-neutral-800 focus:border-white outline-none rounded-lg p-3"
+            />
+            <input
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              type="email"
+              placeholder="E-post"
+              className="w-full bg-neutral-950/70 border border-neutral-800 focus:border-white outline-none rounded-lg p-3"
+            />
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              placeholder="Meddelande"
+              rows="5"
+              className="w-full bg-neutral-950/70 border border-neutral-800 focus:border-white outline-none rounded-lg p-3"
+            />
+            <button
+              type="submit"
+              className="bg-amber-400 text-black font-semibold px-5 py-3 rounded-lg hover:brightness-95 transition"
+            >
+              Skicka Meddelande
+            </button>
+          </form>
+        </motion.div>
+
+        {/* CONTACT INFO */}
+        <motion.div
+          {...fadeUp(0.3)}
+          className="bg-neutral-900/60 border border-neutral-800 rounded-xl p-8"
+        >
+          <h2 className="text-xl font-semibold">Kontaktinformation</h2>
+          <p className="text-gray-400 text-sm mt-1">Så når du oss.</p>
+
+          <ul className="mt-4 space-y-4">
+            <li className="flex gap-3 items-start">
+              <div className="bg-neutral-950/70 border border-neutral-300 rounded-lg p-2">
+                <MapPin size={18} />
+              </div>
+              <div>
+                <strong className="block">Adress</strong>
+                <span>Sturegatan 5, 582 23 Linköping</span>
+              </div>
+            </li>
+
+            <li className="flex gap-3 items-start">
+              <div className="bg-neutral-950/70 border border-neutral-800 rounded-lg p-2">
+                <Phone size={18} />
+              </div>
+              <div>
+                <strong className="block">Telefon</strong>
+                <span>070-000 00 00</span>
+              </div>
+            </li>
+
+            <li className="flex gap-3 items-start">
+              <div className="bg-neutral-950/70 border border-neutral-800 rounded-lg p-2">
+                <Mail size={18} />
+              </div>
+              <div>
+                <strong className="block">E-post</strong>
+                <span>info@aeabarbershop.se</span>
+              </div>
+            </li>
+
+            <li className="flex gap-3 items-start">
+              <div className="bg-neutral-950/70 border border-neutral-800 rounded-lg p-2">
+                <Clock size={18} />
+              </div>
+              <div>
+                <strong className="block">Öppettider</strong>
+                <p>Mån - Fre: 09 - 19</p>
+                <p>Lör: 09 - 17</p>
+                <p>Sönd: stängt</p>
+              </div>
+            </li>
+          </ul>
+        </motion.div>
+      </section>
+
+      {/* MAP */}
+      <motion.section
+        {...fadeUp(0.5)}
+        className="container mx-auto max-w-6xl px-4 pb-28"
+      >
+        <h3 className="text-lg font-semibold mb-3">Hitta hit</h3>
+        <div className="h-[380px] rounded-xl overflow-hidden border border-neutral-800">
+          <iframe
+            title="AeA Barbershop - Karta"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Sturegatan%205,%20Link%C3%B6ping&output=embed"
+            className="w-full h-full"
+          />
+        </div>
+      </motion.section>
+    </main>
   );
 }
