@@ -26,7 +26,7 @@ export default function HomePage() {
                 <div
                     className={`absolute inset-0
                         ${theme === "light"
-                        ? "bg-white/10 backdrop-blur-sm"
+                        ? "bg-white/10 backdrop-blur-md"
                         : "bg-black/50 backdrop-blur-md"}`}
                 />
             </div>
