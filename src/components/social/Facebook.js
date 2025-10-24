@@ -18,7 +18,7 @@ const galleryImages = [
 
 const imageCaptions = []
 
-export default function FacebookModal({ onClose }) {
+export default function InstagramModal({ onClose }) {
     const { theme } = useTheme()
     const isLight = theme === "light"
 
@@ -36,6 +36,13 @@ export default function FacebookModal({ onClose }) {
         const threshold = 100
         if (info.offset.x > threshold) prevImage()
         else if (info.offset.x < -threshold) nextImage()
+    }
+
+    const handleVerticalDragEnd = (event, info) => {
+        const closeThreshold = 150
+        if (info.offset.y > closeThreshold) {
+            onClose()
+        }
     }
 
     return (
@@ -66,33 +73,8 @@ export default function FacebookModal({ onClose }) {
                         <X className="w-6 h-6 text-blue-400" />
                     </button>
 
-                    <div className="text-center mb-8">
-                        <div className="inline-block p-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-2xl mb-4">
-                            <div
-                                className={`px-6 py-3 rounded-xl ${
-                                    isLight ? "bg-white" : "bg-[#1a1a1a]"
-                                }`}
-                            >
-                                <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-400 bg-clip-text text-transparent">
-                                    Vårt Arbete
-                                </h2>
-                            </div>
-                        </div>
-                        <p
-                            className={`mt-2 text-lg ${
-                                isLight ? "text-gray-700" : "text-gray-400"
-                            }`}
-                        >
-                            Se våra senaste klippningar och transformationer
-                        </p>
-                        <div className="flex items-center justify-center gap-2 mt-4">
-                            <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
-                            <div className="h-1 w-12 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full" />
-                        </div>
-                    </div>
-
                     <motion.div
-                        className="grid grid-cols-2 md:grid-cols-3 gap-6 select-none cursor-grab active:cursor-grabbing pb-6"
+                        className="select-none cursor-grab active:cursor-grabbing overflow-hidden"
                         drag="y"
                         dragConstraints={{
                             top: -((Math.ceil(galleryImages.length / 3) - 2) * 250),
@@ -100,27 +82,55 @@ export default function FacebookModal({ onClose }) {
                         }}
                         dragElastic={0.2}
                         style={{ y }}
+                        onDragEnd={handleVerticalDragEnd}
                     >
-                        {galleryImages.map((image, index) => (
-                            <motion.div
-                                key={index}
-                                className={`relative aspect-square cursor-pointer overflow-hidden rounded-xl shadow-lg group
-                                    ${isLight ? "border border-blue-200/40" : "border border-blue-900/20"}`}
-                                whileHover={{ scale: 1.05, rotate: 1 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => openImage(index)}
-                            >
-                                <img
-                                    src={image || "/placeholder.svg"}
-                                    alt={`Arbete ${index + 1}`}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                                    <p className="text-blue-400 font-semibold text-sm">{imageCaptions[index]}</p>
+                        <div className="text-center mb-8">
+                            <div className="inline-block p-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-2xl mb-4">
+                                <div
+                                    className={`px-6 py-3 rounded-xl ${
+                                        isLight ? "bg-white" : "bg-[#1a1a1a]"
+                                    }`}
+                                >
+                                    <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-blue-500 to-blue-400 bg-clip-text text-transparent">
+                                        Vårt Arbete
+                                    </h2>
                                 </div>
-                                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-500/20 to-transparent rounded-xl" />
-                            </motion.div>
-                        ))}
+                            </div>
+                            <p
+                                className={`mt-2 text-lg ${
+                                    isLight ? "text-gray-700" : "text-gray-400"
+                                }`}
+                            >
+                                Se våra senaste klippningar och transformationer
+                            </p>
+                            <div className="flex items-center justify-center gap-2 mt-4">
+                                <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
+                                <div className="h-1 w-12 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full" />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pb-6">
+                            {galleryImages.map((image, index) => (
+                                <motion.div
+                                    key={index}
+                                    className={`relative aspect-square cursor-pointer overflow-hidden rounded-xl shadow-lg group
+                                        ${isLight ? "border border-blue-200/40" : "border border-blue-900/20"}`}
+                                    whileHover={{ scale: 1.05, rotate: 1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => openImage(index)}
+                                >
+                                    <img
+                                        src={image}
+                                        alt={`Arbete ${index + 1}`}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                        <p className="text-blue-400 font-semibold text-sm">{imageCaptions[index]}</p>
+                                    </div>
+                                    <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-500/20 to-transparent rounded-xl" />
+                                </motion.div>
+                            ))}
+                        </div>
                     </motion.div>
                 </motion.div>
             </div>
