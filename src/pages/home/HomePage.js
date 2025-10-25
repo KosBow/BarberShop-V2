@@ -1,6 +1,6 @@
 ﻿import { useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
-
+import { Link } from "react-router-dom"
 export default function HomePage() {
     const { theme } = useTheme();
 
@@ -50,12 +50,12 @@ export default function HomePage() {
                 </p>
 
                 <div className="mt-6 flex flex-wrap justify-center gap-4">
-                    <a
-                        href="/kontakt"
+                    <Link
+                        to="/kontakt"
                         className="bg-yellow-400 text-black px-6 py-3 font-semibold hover:bg-yellow-500 transition animate-pulse"
                     >
                         Boka tid
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>
