@@ -14,10 +14,12 @@ export default function Services() {
     const [isFacebookOpen, setFacebookOpen] = useState(false)
 
     const fadeUp = (delay = 0) => ({
-        initial: { opacity: 0, y: 40 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 1.2, delay, ease: "easeOut" },
-        viewport: { once: true },
+        hidden: { opacity: 0, y: 40 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1, delay, ease: "easeOut" },
+        },
     })
 
     const services = [
@@ -52,7 +54,13 @@ export default function Services() {
                 theme === "dark" ? "bg-black text-white" : "bg-white text-gray-900"
             }`}
         >
-            <motion.section {...fadeUp(0)} className="container mx-auto max-w-6xl px-4 pt-16 pb-6 text-center">
+            <motion.section
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={fadeUp(0)}
+                className="container mx-auto max-w-6xl px-4 pt-16 pb-6 text-center"
+            >
                 <h1 className="text-4xl font-bold">Våra Tjänster</h1>
                 <p className={`mt-2 ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
                     Vi erbjuder professionella barberartjänster med fokus på stil, kvalitet och personlig service.
@@ -64,12 +72,28 @@ export default function Services() {
                 {services.map((service, index) => (
                     <motion.div
                         key={service.title}
-                        {...fadeUp(index * 0.15)}
-                        className={`rounded-xl p-8 border transition-colors duration-500 ${
+                        variants={fadeUp(index * 0.15)}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true }}
+                        whileHover={{
+                            scale: 1.05,
+                            y: -5,
+                            boxShadow:
+                                theme === "dark"
+                                    ? "0px 10px 25px rgba(255, 255, 255, 0.05)"
+                                    : "0px 10px 25px rgba(0, 0, 0, 0.1)",
+                        }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 220,
+                            damping: 18,
+                        }}
+                        className={`rounded-xl p-8 border ${
                             theme === "dark"
                                 ? "bg-neutral-900/60 border-neutral-800"
                                 : "bg-gray-100 border-gray-200"
-                        } flex flex-col items-center text-center hover:scale-105 hover:shadow-lg transition-transform`}
+                        } flex flex-col items-center text-center transition-all duration-500 ease-out`}
                     >
                         {service.icon}
                         <h3 className="text-xl font-semibold mt-4">{service.title}</h3>
@@ -80,7 +104,13 @@ export default function Services() {
                 ))}
             </section>
 
-            <motion.section {...fadeUp(0.2)} className="container mx-auto max-w-6xl px-4 pb-28 text-center">
+            <motion.section
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={fadeUp(0.2)}
+                className="container mx-auto max-w-6xl px-4 pb-28 text-center"
+            >
                 <h2 className="text-2xl font-semibold mb-8">Följ oss på sociala medier</h2>
 
                 <div
@@ -92,8 +122,9 @@ export default function Services() {
                 >
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
                         className="relative mb-8"
                     >
                         <h3 className="text-2xl font-semibold mb-2">Se vårt arbete</h3>
