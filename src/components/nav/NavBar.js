@@ -96,7 +96,6 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
             </div>
           </div>
 
-          {/* Tema-knapp + Boka-knapp */}
           <div className="hidden md:flex items-center gap-4">
             <Button
               variant="ghost"
@@ -128,7 +127,6 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
             </Link>
           </div>
 
-          {/* Mobil-knapp */}
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -150,7 +148,6 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
         </div>
       </div>
 
-      {/* Mobilmeny */}
       {isOpen && (
         <div
           className={`md:hidden border-t backdrop-blur-sm ${
