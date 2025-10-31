@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useTheme } from "../../context/ThemeContext";
@@ -9,6 +9,7 @@ import { useTheme } from "../../context/ThemeContext";
 export function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation(); 
 
   return (
     <nav
@@ -20,21 +21,19 @@ export function NavBar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo + namn */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
-             <div className="relative flex h-14 w-14 items-center justify-center rounded-full  bg-white dark:bg-[#111] hover:bg-[#fef9e7] transition-colors duration-500">
-  <img
-    src={
-      theme === "light"
-        ? "/images/nav/EdenStudioLight.png"
-        : "/images/nav/EdenStudio.png"
-    }
-    alt="Eden Studio Logo"
-    className="h-12 w-12 rounded-full transition-transform duration-300 hover:scale-110"
-  />
-</div>
-
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-full  bg-white dark:bg-[#111] hover:bg-[#fef9e7] transition-colors duration-500">
+                <img
+                  src={
+                    theme === "light"
+                      ? "/images/nav/EdenStudioLight.png"
+                      : "/images/nav/EdenStudio.png"
+                  }
+                  alt="Eden Studio Logo"
+                  className="h-12 w-12 rounded-full transition-transform duration-300 hover:scale-110"
+                />
+              </div>
 
               <span
                 className={`text-xl font-semibold transition-colors ${
@@ -46,7 +45,6 @@ export function NavBar() {
             </Link>
           </div>
 
-          {/* Desktop-länkar */}
           <div className="hidden md:block">
             <div className="flex items-center gap-8">
               <Link
@@ -56,6 +54,8 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
                   theme === "light"
                     ? "text-[#3b3b3b] after:bg-[#ffee00]"
                     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+                } ${
+                  location.pathname === "/" ? "after:left-0 after:w-full" : ""
                 }`}
               >
                 Startsida
@@ -67,6 +67,10 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
                   theme === "light"
                     ? "text-[#3b3b3b] after:bg-[#ffee00]"
                     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+                } ${
+                  location.pathname === "/services"
+                    ? "after:left-0 after:w-full"
+                    : ""
                 }`}
               >
                 Tjänster
@@ -78,6 +82,10 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
                   theme === "light"
                     ? "text-[#3b3b3b] after:bg-[#ffee00]"
                     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+                } ${
+                  location.pathname === "/kontakt"
+                    ? "after:left-0 after:w-full"
+                    : ""
                 }`}
               >
                 Kontakt
@@ -89,6 +97,10 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
                   theme === "light"
                     ? "text-[#3b3b3b] after:bg-[#ffee00]"
                     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+                } ${
+                  location.pathname === "/om-oss"
+                    ? "after:left-0 after:w-full"
+                    : ""
                 }`}
               >
                 Om Oss
@@ -192,6 +204,10 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
                   theme === "light"
                     ? "text-gray-700 hover:text-[#d4af37]"
                     : "text-white hover:text-[#d4af37]"
+                } ${
+                  location.pathname === i.to
+                    ? "font-semibold underline underline-offset-4"
+                    : ""
                 }`}
               >
                 {i.label}
