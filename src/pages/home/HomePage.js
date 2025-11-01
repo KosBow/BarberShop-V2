@@ -42,11 +42,7 @@ export default function HomePage() {
       {/* 🔶 Container med logga som bakgrund */}
       <motion.div
         className={`relative z-10 flex flex-col items-center text-center px-6 py-14 rounded-xl border shadow-lg transition-all duration-500 max-w-4xl
-          ${
-            theme === "dark"
-              ? "border-amber-500/20"
-              : "border-amber-200"
-          }`}
+          ${theme === "dark" ? "border-amber-500/20" : "border-amber-200"}`}
         style={{
           backgroundImage: `url('${logoOverlay}')`,
           backgroundSize: "cover",
@@ -59,9 +55,7 @@ export default function HomePage() {
         {/* 🔸 Mjuk overlay för textkontrast */}
         <div
           className={`absolute inset-0 rounded-xl backdrop-blur-[0px] ${
-            theme === "dark"
-              ? "bg-black/50"
-              : "bg-white/40"
+            theme === "dark" ? "bg-black/50" : "bg-white/40"
           }`}
         />
 

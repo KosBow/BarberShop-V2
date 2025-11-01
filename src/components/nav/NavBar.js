@@ -9,7 +9,7 @@ import { useTheme } from "../../context/ThemeContext";
 export function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const location = useLocation(); 
+  const location = useLocation();
 
   return (
     <nav
@@ -21,9 +21,10 @@ export function NavBar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
+          {/* Logo + namn */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
-              <div className="relative flex h-14 w-14 items-center justify-center rounded-full  bg-white dark:bg-[#111] hover:bg-[#fef9e7] transition-colors duration-500">
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white dark:bg-[#111] hover:bg-[#fef9e7] transition-colors duration-500">
                 <img
                   src={
                     theme === "light"
@@ -34,7 +35,6 @@ export function NavBar() {
                   className="h-12 w-12 rounded-full transition-transform duration-300 hover:scale-110"
                 />
               </div>
-
               <span
                 className={`text-xl font-semibold transition-colors ${
                   theme === "light" ? "text-gray-900" : "text-[#d4af37]"
@@ -45,69 +45,88 @@ export function NavBar() {
             </Link>
           </div>
 
+          {/* Desktop-länkar */}
           <div className="hidden md:block">
             <div className="flex items-center gap-8">
+              {/* Startsida */}
               <Link
                 to="/"
-                className={`relative font-bold font-mono text-sm transition-colors 
-after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0  after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${
-                  theme === "light"
-                    ? "text-[#3b3b3b] after:bg-[#ffee00]"
-                    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
-                } ${
-                  location.pathname === "/" ? "after:left-0 after:w-full" : ""
-                }`}
+                className={`relative font-bold font-mono text-sm transition-colors
+after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:origin-center after:transition-all after:duration-300 hover:after:w-full
+${
+  theme === "light"
+    ? "text-[#3b3b3b] after:bg-[#ffee00]"
+    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+} ${
+  location.pathname === "/"
+    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+    : ""
+}`}
+
               >
                 Startsida
               </Link>
+
+              {/* Tjänster */}
               <Link
                 to="/services"
-                className={`relative font-bold font-mono text-sm transition-colors 
-after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0  after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${
-                  theme === "light"
-                    ? "text-[#3b3b3b] after:bg-[#ffee00]"
-                    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
-                } ${
-                  location.pathname === "/services"
-                    ? "after:left-0 after:w-full"
-                    : ""
-                }`}
+                className={`relative font-bold font-mono text-sm transition-colors
+after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:origin-center after:transition-all after:duration-300 hover:after:w-full
+${
+  theme === "light"
+    ? "text-[#3b3b3b] after:bg-[#ffee00]"
+    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+} ${
+  location.pathname === "/services"
+    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+    : ""
+}`}
+
               >
                 Tjänster
               </Link>
+
+              {/* Kontakt */}
               <Link
                 to="/kontakt"
-                className={`relative font-bold font-mono text-sm transition-colors 
-after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0  after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${
-                  theme === "light"
-                    ? "text-[#3b3b3b] after:bg-[#ffee00]"
-                    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
-                } ${
-                  location.pathname === "/kontakt"
-                    ? "after:left-0 after:w-full"
-                    : ""
-                }`}
+                className={`relative font-bold font-mono text-sm transition-colors
+after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:origin-center after:transition-all after:duration-300 hover:after:w-full
+${
+  theme === "light"
+    ? "text-[#3b3b3b] after:bg-[#ffee00]"
+    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+} ${
+  location.pathname === "/kontakt"
+    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+    : ""
+}`}
+
               >
                 Kontakt
               </Link>
+
+              {/* Om oss */}
               <Link
                 to="/om-oss"
-                className={`relative font-bold font-mono text-sm transition-colors 
-after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0  after:transition-all after:duration-300 hover:after:left-0 hover:after:w-full ${
-                  theme === "light"
-                    ? "text-[#3b3b3b] after:bg-[#ffee00]"
-                    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
-                } ${
-                  location.pathname === "/om-oss"
-                    ? "after:left-0 after:w-full"
-                    : ""
-                }`}
+                className={`relative font-bold font-mono text-sm transition-colors
+after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:origin-center after:transition-all after:duration-300 hover:after:w-full
+${
+  theme === "light"
+    ? "text-[#3b3b3b] after:bg-[#ffee00]"
+    : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+} ${
+  location.pathname === "/om-oss"
+    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+    : ""
+}`}
+
               >
                 Om Oss
               </Link>
             </div>
           </div>
 
+          {/* Theme & CTA */}
           <div className="hidden md:flex items-center gap-4">
             <Button
               variant="ghost"
@@ -139,6 +158,7 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
             </Link>
           </div>
 
+          {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -160,6 +180,7 @@ after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] a
         </div>
       </div>
 
+      {/* Mobile menu */}
       {isOpen && (
         <div
           className={`md:hidden border-t backdrop-blur-sm ${
