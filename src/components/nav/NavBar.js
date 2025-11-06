@@ -29,7 +29,7 @@ export function NavBar() {
                   src={
                     theme === "light"
                       ? "/images/nav/EdenStudioLight.png"
-                      : "/images/nav/EdenStudio.png"
+                      : "/images/nav/EdenStudioDark.png"
                   }
                   alt="Eden Studio Logo"
                   className="h-12 w-12 rounded-full transition-transform duration-300 hover:scale-110"
@@ -58,11 +58,10 @@ ${
     ? "text-[#3b3b3b] after:bg-[#ffee00]"
     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
 } ${
-  location.pathname === "/"
-    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
-    : ""
-}`}
-
+                  location.pathname === "/"
+                    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+                    : ""
+                }`}
               >
                 Startsida
               </Link>
@@ -77,11 +76,10 @@ ${
     ? "text-[#3b3b3b] after:bg-[#ffee00]"
     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
 } ${
-  location.pathname === "/services"
-    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
-    : ""
-}`}
-
+                  location.pathname === "/services"
+                    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+                    : ""
+                }`}
               >
                 Tjänster
               </Link>
@@ -96,11 +94,10 @@ ${
     ? "text-[#3b3b3b] after:bg-[#ffee00]"
     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
 } ${
-  location.pathname === "/kontakt"
-    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
-    : ""
-}`}
-
+                  location.pathname === "/kontakt"
+                    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+                    : ""
+                }`}
               >
                 Kontakt
               </Link>
@@ -115,11 +112,10 @@ ${
     ? "text-[#3b3b3b] after:bg-[#ffee00]"
     : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
 } ${
-  location.pathname === "/om-oss"
-    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
-    : ""
-}`}
-
+                  location.pathname === "/om-oss"
+                    ? "after:w-full after:bg-[#ffee00] after:left-1/2 after:-translate-x-1/2"
+                    : ""
+                }`}
               >
                 Om Oss
               </Link>
