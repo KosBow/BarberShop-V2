@@ -21,7 +21,6 @@ export function NavBar() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo + namn */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
               <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white dark:bg-[#111] hover:bg-[#fef9e7] transition-colors duration-500">
@@ -45,10 +44,8 @@ export function NavBar() {
             </Link>
           </div>
 
-          {/* Desktop-länkar */}
           <div className="hidden md:block">
             <div className="flex items-center gap-8">
-              {/* Startsida */}
               <Link
                 to="/"
                 className={`relative font-bold font-mono text-sm transition-colors
@@ -66,7 +63,6 @@ ${
                 Startsida
               </Link>
 
-              {/* Tjänster */}
               <Link
                 to="/services"
                 className={`relative font-bold font-mono text-sm transition-colors
@@ -84,7 +80,6 @@ ${
                 Tjänster
               </Link>
 
-              {/* Kontakt */}
               <Link
                 to="/kontakt"
                 className={`relative font-bold font-mono text-sm transition-colors
@@ -102,7 +97,6 @@ ${
                 Kontakt
               </Link>
 
-              {/* Om oss */}
               <Link
                 to="/om-oss"
                 className={`relative font-bold font-mono text-sm transition-colors
@@ -122,7 +116,6 @@ ${
             </div>
           </div>
 
-          {/* Theme & CTA */}
           <div className="hidden md:flex items-center gap-4">
             <Button
               variant="ghost"
@@ -154,7 +147,6 @@ ${
             </Link>
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -176,7 +168,6 @@ ${
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isOpen && (
         <div
           className={`md:hidden border-t backdrop-blur-sm ${

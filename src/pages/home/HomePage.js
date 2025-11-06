@@ -14,99 +14,113 @@ export default function HomePage() {
   }, []);
 
   const bgImage = "/images/nav/background.jpg";
-  const logoOverlay = "/images/EdenStudioBarbershopremovebg.png"; // din logga
+  const logo = "/images/EdenStudioBarbershopremovebg.png";
 
   return (
     <section
-      className={`relative min-h-screen w-full flex justify-center items-center overflow-hidden transition-colors duration-500 ${
+      className={`relative min-h-screen flex flex-col justify-center items-center overflow-hidden transition-colors duration-700 ${
         theme === "dark" ? "bg-black text-white" : "bg-white text-gray-900"
       }`}
     >
-      {/* 🔹 Bakgrundsbild */}
       <motion.div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: `url('${bgImage}')` }}
-        initial={{ scale: 1.2, opacity: 0 }}
+        initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 2.5, ease: "easeOut" }}
+        transition={{ duration: 2, ease: "easeOut" }}
       >
         <div
           className={`absolute inset-0 ${
-            theme === "light"
-              ? "bg-white/10 backdrop-blur-md"
-              : "bg-black/60 backdrop-blur-md"
+            theme === "dark"
+              ? "bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.65)_0%,rgba(0,0,0,0.85)_80%)]"
+              : "bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.7)_90%)]"
           }`}
         />
       </motion.div>
 
-      {/* 🔶 Container med logga som bakgrund */}
-      <motion.div
-        className={`relative z-10 flex flex-col items-center text-center px-6 py-14 rounded-xl border shadow-lg transition-all duration-500 max-w-4xl
-          ${theme === "dark" ? "border-amber-500/20" : "border-amber-200"}`}
-        style={{
-          backgroundImage: `url('${logoOverlay}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
-        {/* 🔸 Mjuk overlay för textkontrast */}
-        <div
-          className={`absolute inset-0 rounded-xl backdrop-blur-[0px] ${
-            theme === "dark" ? "bg-black/50" : "bg-white/40"
-          }`}
+      <div className="relative z-10 flex flex-col items-center text-center px-6">
+        <motion.img
+          src={logo}
+          alt="Eden Studio Barbershop"
+          className="max-w-[min(90%,450px)] h-auto mb-10 object-contain drop-shadow-[0_0_25px_rgba(255,191,0,0.2)] select-none"
+          style={{ imageRendering: "auto" }}
+          initial={{ opacity: 0, y: -30, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
         />
 
-        {/* 🔸 Textinnehåll */}
         <motion.h1
-          className="text-4xl sm:text-5xl font-bold leading-tight z-10 drop-shadow-[0_0_10px_rgba(0,0,0,0.4)]"
+          className="text-5xl sm:text-6xl font-extrabold leading-tight mb-5 tracking-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.6)]"
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
         >
-          Professionella Hårklippningar
-          <br />
-          <span className="text-amber-400">& Styling</span>
+          <span
+            className={`${
+              theme === "dark" ? "text-amber-400" : "text-amber-500"
+            }`}
+          >
+            Eden Studio
+          </span>{" "}
+          Barbershop
         </motion.h1>
 
         <motion.p
-          className={`text-lg sm:text-xl max-w-xl mt-4 z-10 ${
-            theme === "dark" ? "text-gray-300" : "text-gray-800"
-          }`}
-          initial={{ opacity: 0, y: 20 }}
+          className={`text-lg sm:text-xl max-w-2xl leading-relaxed px-6 py-3 rounded-lg backdrop-blur-md font-medium ${
+            theme === "dark"
+              ? "text-gray-200 bg-black/35"
+              : "text-gray-200 bg-black/40"
+          } drop-shadow-[0_4px_10px_rgba(0,0,0,1)]`}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 1 }}
         >
-          Din moderna salong för stil, skägg och självförtroende. Vi erbjuder
-          premium klippningar, skäggtrimningar och stylingtjänster för den
-          moderna gentlemannen.
+          En modern salong för stil, skägg och självförtroende.  
+          Vi erbjuder premium klippningar, skäggtrimningar och stylingtjänster  
+          för den moderna gentlemannen.
         </motion.p>
 
-        {/* 🔸 Knapp */}
         <motion.div
-          className="mt-8 z-10"
+          className="mt-12"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 1, duration: 0.8 }}
         >
-          <Link
-            to="/kontakt"
-            className="relative bg-amber-400 text-black px-8 py-3 font-semibold rounded-md overflow-hidden group shadow-md hover:shadow-lg"
+          <motion.div
+            animate={{
+              boxShadow: [
+                "0 0 0px rgba(255,191,0,0)",
+                "0 0 25px rgba(255,191,0,0.5)",
+                "0 0 0px rgba(255,191,0,0)",
+              ],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+            className="rounded-md"
           >
-            <span className="absolute inset-0 bg-amber-300 opacity-0 group-hover:opacity-20 blur-lg transition-all duration-300" />
-            <span className="relative z-10">Boka tid</span>
-          </Link>
+            <Link
+              to="/kontakt"
+              className={`relative px-12 py-4 text-lg font-semibold rounded-md overflow-hidden group transition-all duration-300 ${
+                theme === "dark"
+                  ? "bg-amber-400 text-black hover:bg-amber-300"
+                  : "bg-amber-500 text-black hover:bg-amber-400"
+              } shadow-lg hover:shadow-amber-400/40`}
+            >
+              <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 blur-xl transition-all duration-300" />
+              <span className="relative z-10">Boka tid</span>
+            </Link>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* 🔸 Ljusreflektionseffekt */}
       <motion.div
-        className="absolute top-0 left-[-50%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none"
+        className="absolute top-0 left-[-50%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"
         animate={{ x: ["-50%", "50%"] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        style={{ opacity: 0.08 }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        style={{ opacity: 0.05 }}
       />
     </section>
   );
