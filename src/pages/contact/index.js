@@ -63,7 +63,6 @@ export default function Contact() {
       </motion.section>
 
       <section className="container mx-auto max-w-6xl px-4 pb-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* FORMULÄR */}
         <motion.div
           {...fadeUp(0.1)}
           className={`rounded-xl p-8 border transition-colors duration-500 ${
@@ -119,7 +118,6 @@ export default function Contact() {
               }`}
             />
 
-            {/* 🟡 SKICKA-KNAPP */}
             <motion.button
               type="submit"
               whileHover={{ scale: 1.05, y: -1 }}
@@ -131,7 +129,6 @@ export default function Contact() {
             </motion.button>
           </form>
 
-          {/* STATUSMEDDELANDE */}
           {status && (
             <p
               className={`mt-3 text-sm ${
@@ -145,7 +142,6 @@ export default function Contact() {
           )}
         </motion.div>
 
-        {/* KONTAKTINFO */}
         <motion.div
           {...fadeUp(0.3)}
           className={`rounded-xl p-8 border transition-colors duration-500 ${
@@ -156,13 +152,6 @@ export default function Contact() {
         >
           <h2 className="text-xl font-semibold">Kontaktinformation</h2>
           <div className="h-[2px] w-10 bg-amber-400 rounded-full mt-1" />
-          <p
-            className={`text-sm mt-2 ${
-              theme === "dark" ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            Så når du oss.
-          </p>
 
           <ul className="mt-5 space-y-4">
             {[
@@ -191,9 +180,7 @@ export default function Contact() {
                     <p>Sönd: stängt</p>
                     <p
                       className={`mt-3 text-sm italic ${
-                        theme === "dark"
-                          ? "text-gray-400"
-                          : "text-gray-600"
+                        theme === "dark" ? "text-gray-400" : "text-gray-600"
                       }`}
                     >
                       Avbokning sker endast via telefon eller genom din
