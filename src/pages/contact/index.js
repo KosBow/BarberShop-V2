@@ -1,13 +1,15 @@
 "use client";
+
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const { theme } = useTheme();
-
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -16,49 +18,80 @@ export default function Contact() {
   });
   const [status, setStatus] = useState(null);
   const [showPlane, setShowPlane] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [errors, setErrors] = useState({});
 
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((s) => ({ ...s, [name]: value }));
   }
 
+  function validateForm() {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const subject = form.subject.trim();
+    const message = form.message.trim();
+
+    if (!name) newErrors.name = "Ange ditt namn.";
+    else if (name.length < 2) newErrors.name = "Namnet måste ha minst 2 tecken.";
+
+    if (!email) newErrors.email = "Ange din e-postadress.";
+    else if (!emailRegex.test(email))
+      newErrors.email = "Skriv en giltig e-postadress (t.ex. namn@exempel.se).";
+
+    if (!subject) newErrors.subject = "Välj ett ämne.";
+
+    if (!message) newErrors.message = "Skriv ett meddelande.";
+    else if (message.length < 10)
+      newErrors.message = "Meddelandet måste innehålla minst 10 tecken.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length ? newErrors : null;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-
-    if (!form.name || !form.email || !form.message) {
-      setStatus({
-        type: "error",
-        msg: "Fyll i minst Namn, E-post och Meddelande.",
-      });
+    const error = validateForm();
+    if (error) {
+      setStatus({ type: "error", msg: "Korrigera fälten markerade i rött." });
       return;
     }
 
-    const templateParams = {
-      from_name: form.name,
-      from_email: form.email,
-      subject: form.subject,
-      message: form.message,
-    };
+    if (!executeRecaptcha) {
+      setStatus({ type: "error", msg: "Recaptcha kunde inte laddas. Försök igen." });
+      return;
+    }
 
     try {
+      setSending(true);
+      const token = await executeRecaptcha("kontakt_form");
+      const templateParams = {
+        from_name: form.name.trim(),
+        from_email: form.email.trim(),
+        reply_to: form.email.trim(),
+        subject: form.subject.trim(),
+        message: form.message.trim(),
+        "g-recaptcha-response": token,
+      };
+
       await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        process.env.REACT_APP_SERVICE_ID,
+        process.env.REACT_APP_TEMPLATE_ID,
         templateParams,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        process.env.REACT_APP_PUBLIC_KEY
       );
 
       setStatus({ type: "ok", msg: "Tack! Ditt meddelande har skickats." });
       setShowPlane(true);
       setForm({ name: "", email: "", subject: "", message: "" });
-
       setTimeout(() => setShowPlane(false), 3000);
-    } catch (error) {
-      console.error("EmailJS error:", error);
-      setStatus({
-        type: "error",
-        msg: "Något gick fel. Försök igen senare.",
-      });
+      setErrors({});
+    } catch {
+      setStatus({ type: "error", msg: "Något gick fel. Försök igen senare." });
+    } finally {
+      setSending(false);
     }
   }
 
@@ -68,6 +101,15 @@ export default function Contact() {
     transition: { duration: 1.3, delay, ease: "easeOut" },
     viewport: { once: true },
   });
+
+  const inputClass = (field) =>
+    `w-full border outline-none rounded-lg p-3 transition-colors duration-300 ${
+      errors[field]
+        ? "border-red-500 focus:border-red-500"
+        : theme === "dark"
+        ? "bg-neutral-950/70 border-neutral-800 focus:border-amber-400"
+        : "bg-white border-gray-300 focus:border-amber-500"
+    }`;
 
   return (
     <main
@@ -109,18 +151,14 @@ export default function Contact() {
             Fyll i formuläret så återkommer vi så snart som möjligt.
           </p>
 
-          <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+          <form onSubmit={handleSubmit} className="mt-4 space-y-3" noValidate>
             <input
               name="name"
               value={form.name}
               onChange={handleChange}
               type="text"
               placeholder="Namn"
-              className={`w-full border outline-none rounded-lg p-3 transition-colors duration-300 ${
-                theme === "dark"
-                  ? "bg-neutral-950/70 border-neutral-800 focus:border-amber-400"
-                  : "bg-white border-gray-300 focus:border-amber-500"
-              }`}
+              className={inputClass("name")}
             />
             <input
               name="email"
@@ -128,39 +166,64 @@ export default function Contact() {
               onChange={handleChange}
               type="email"
               placeholder="E-post"
-              className={`w-full border outline-none rounded-lg p-3 transition-colors duration-300 ${
-                theme === "dark"
-                  ? "bg-neutral-950/70 border-neutral-800 focus:border-amber-400"
-                  : "bg-white border-gray-300 focus:border-amber-500"
-              }`}
+              className={inputClass("email")}
             />
+            <select
+              name="subject"
+              value={form.subject}
+              onChange={handleChange}
+              className={inputClass("subject")}
+            >
+              <option value="">Välj ett ämne...</option>
+              <option value="Bokning / Ny tidsbokning">Bokning / Ny tidsbokning</option>
+              <option value="Ändring / Avbokning av bokning">
+                Ändring / Avbokning av bokning
+              </option>
+              <option value="Fråga om pris / tjänster">Fråga om pris / tjänster</option>
+              <option value="Behandling av skägg / trimning">
+                Behandling av skägg / trimning
+              </option>
+              <option value="Reklamation / feedback">Reklamation / feedback</option>
+              <option value="Annat">Annat</option>
+            </select>
             <textarea
               name="message"
               value={form.message}
               onChange={handleChange}
               placeholder="Meddelande"
               rows="5"
-              className={`w-full border outline-none rounded-lg p-3 transition-colors duration-300 ${
-                theme === "dark"
-                  ? "bg-neutral-950/70 border-neutral-800 focus:border-amber-400"
-                  : "bg-white border-gray-300 focus:border-amber-500"
-              }`}
+              className={inputClass("message")}
             />
 
             <motion.button
               type="submit"
               whileHover={{ scale: 1.05, y: -1 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="bg-amber-400 text-black font-semibold px-5 py-3 rounded-lg flex items-center gap-2 justify-center hover:bg-amber-500 transition shadow-md hover:shadow-amber-400/40"
+              disabled={sending}
+              className={`${
+                sending
+                  ? "bg-amber-300 cursor-not-allowed"
+                  : "bg-amber-400 hover:bg-amber-500"
+              } text-black font-semibold px-5 py-3 rounded-lg flex items-center gap-2 justify-center transition shadow-md hover:shadow-amber-400/40 mb-3`}
             >
-              <Send size={18} className="mt-[1px]" />
-              Skicka Meddelande
+              {sending ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Skickar...
+                </>
+              ) : (
+                <>
+                  <Send size={18} className="mt-[1px]" />
+                  Skicka Meddelande
+                </>
+              )}
             </motion.button>
           </form>
 
-          <div className="mt-3 h-10 relative overflow-visible">
+          <div className="mt-2 h-10 relative overflow-visible">
             {status && (
               <p
+                aria-live="polite"
                 className={`text-sm ${
                   status.type === "ok"
                     ? "text-amber-500"
@@ -170,7 +233,6 @@ export default function Contact() {
                 {status.msg}
               </p>
             )}
-
             <AnimatePresence>
               {showPlane && (
                 <motion.div
@@ -216,7 +278,6 @@ export default function Contact() {
         >
           <h2 className="text-xl font-semibold">Kontaktinformation</h2>
           <div className="h-[2px] w-10 bg-amber-400 rounded-full mt-1" />
-
           <ul className="mt-5 space-y-4">
             {[
               {
@@ -247,8 +308,7 @@ export default function Contact() {
                         theme === "dark" ? "text-gray-400" : "text-gray-600"
                       }`}
                     >
-                      Avbokning sker endast via telefon eller genom din
-                      online-bokning.
+                      Avbokning sker endast via telefon eller genom din online-bokning.
                     </p>
                   </>
                 ),

@@ -2,10 +2,12 @@
 <html lang="sv">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark light" />
 
-    <!-- 🧠 SEO -->
     <title>Eden Studio Barbershop | Frisör & Barbershop i Linköping</title>
     <meta
       name="description"
@@ -17,22 +19,87 @@
     />
     <meta name="author" content="Eden Studio Barbershop – Linköping" />
 
-    <!-- 🧩 Ikoner -->
-    <link rel="icon" href="%PUBLIC_URL%/images/barber-logo.png" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/barber-logo.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="%PUBLIC_URL%/images/barber-logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="%PUBLIC_URL%/images/barber-logo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="%PUBLIC_URL%/images/barber-logo.png"
+    />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta
+      name="msapplication-TileImage"
+      content="%PUBLIC_URL%/images/barber-logo.png"
+    />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <!-- 💬 Social media preview -->
+    <link
+      rel="preload"
+      as="image"
+      href="%PUBLIC_URL%/images/nav/background.jpg"
+    />
+
     <meta property="og:title" content="Eden Studio Barbershop – Linköping" />
     <meta
       property="og:description"
       content="Din premiumsalong för stil, skägg och självförtroende i Linköping. Boka din tid hos Eden Studio Barbershop – Sturegatan 5."
     />
-    <meta property="og:image" content="%PUBLIC_URL%/images/barber-home.jpg" />
+    <meta
+      property="og:image"
+      content="https://edenstudiobarbershop.se/images/barber-home.jpg"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://edenstudiobarbershop.se" />
 
-    <!-- 🧷 Fonts (valfritt) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Eden Studio Barbershop – Linköping"
+    />
+    <meta
+      name="twitter:description"
+      content="Premium barbershop i Linköping. Klippning, fade och grooming på Sturegatan 5."
+    />
+    <meta
+      name="twitter:image"
+      content="https://edenstudiobarbershop.se/images/barber-home.jpg"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Barbershop",
+        "name": "Eden Studio Barbershop",
+        "image": "https://edenstudiobarbershop.se/images/barber-home.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Sturegatan 5",
+          "addressLocality": "Linköping",
+          "postalCode": "582 23",
+          "addressCountry": "SE"
+        },
+        "url": "https://edenstudiobarbershop.se",
+        "telephone": "+46-7x-xxx-xxxx",
+        "openingHours": "Mo-Fr 10:00-19:00, Sa 10:00-17:00"
+      }
+    </script>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <!-- 💬 Fonts (valfritt) -->
     <!--
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
