@@ -67,6 +67,7 @@ export default function Contact() {
     try {
       setSending(true);
       const token = await executeRecaptcha("kontakt_form");
+
       const templateParams = {
         from_name: form.name.trim(),
         from_email: form.email.trim(),
@@ -78,8 +79,18 @@ export default function Contact() {
 
       await emailjs.send(
         process.env.REACT_APP_SERVICE_ID,
-        process.env.REACT_APP_TEMPLATE_ID,
+        process.env.REACT_APP_TEMPLATE_ADMIN,
         templateParams,
+        process.env.REACT_APP_PUBLIC_KEY
+      );
+
+      await emailjs.send(
+        process.env.REACT_APP_SERVICE_ID,
+        process.env.REACT_APP_TEMPLATE_CUSTOMER,
+        {
+          from_name: form.name.trim(),
+          from_email: form.email.trim(),
+        },
         process.env.REACT_APP_PUBLIC_KEY
       );
 
@@ -176,13 +187,9 @@ export default function Contact() {
             >
               <option value="">Välj ett ämne...</option>
               <option value="Bokning / Ny tidsbokning">Bokning / Ny tidsbokning</option>
-              <option value="Ändring / Avbokning av bokning">
-                Ändring / Avbokning av bokning
-              </option>
+              <option value="Ändring / Avbokning av bokning">Ändring / Avbokning av bokning</option>
               <option value="Fråga om pris / tjänster">Fråga om pris / tjänster</option>
-              <option value="Behandling av skägg / trimning">
-                Behandling av skägg / trimning
-              </option>
+              <option value="Behandling av skägg / trimning">Behandling av skägg / trimning</option>
               <option value="Reklamation / feedback">Reklamation / feedback</option>
               <option value="Annat">Annat</option>
             </select>
