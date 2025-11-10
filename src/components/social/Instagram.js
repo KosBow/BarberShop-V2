@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
