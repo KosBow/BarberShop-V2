@@ -1,7 +1,9 @@
+"use client";
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const { theme } = useTheme();
@@ -13,14 +15,16 @@ export default function Contact() {
     message: "",
   });
   const [status, setStatus] = useState(null);
+  const [showPlane, setShowPlane] = useState(false);
 
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((s) => ({ ...s, [name]: value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
     if (!form.name || !form.email || !form.message) {
       setStatus({
         type: "error",
@@ -28,8 +32,34 @@ export default function Contact() {
       });
       return;
     }
-    setStatus({ type: "ok", msg: "Tack! Vi återkommer så snart vi kan." });
-    setForm({ name: "", email: "", subject: "", message: "" });
+
+    const templateParams = {
+      from_name: form.name,
+      from_email: form.email,
+      subject: form.subject,
+      message: form.message,
+    };
+
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      );
+
+      setStatus({ type: "ok", msg: "Tack! Ditt meddelande har skickats." });
+      setShowPlane(true);
+      setForm({ name: "", email: "", subject: "", message: "" });
+
+      setTimeout(() => setShowPlane(false), 3000);
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      setStatus({
+        type: "error",
+        msg: "Något gick fel. Försök igen senare.",
+      });
+    }
   }
 
   const fadeUp = (delay = 0) => ({
@@ -45,7 +75,6 @@ export default function Contact() {
         theme === "dark" ? "bg-black text-white" : "bg-white text-gray-900"
       }`}
     >
-      {/* 🔆 HALO bakom rubrik */}
       <motion.section
         {...fadeUp(0)}
         className="relative container mx-auto max-w-6xl px-4 pt-16 pb-6 text-center"
@@ -65,7 +94,7 @@ export default function Contact() {
       <section className="container mx-auto max-w-6xl px-4 pb-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div
           {...fadeUp(0.1)}
-          className={`rounded-xl p-8 border transition-colors duration-500 ${
+          className={`relative rounded-xl p-8 border transition-colors duration-500 ${
             theme === "dark"
               ? "bg-neutral-900/60 border-amber-500/20"
               : "bg-gray-100 border-amber-400/30"
@@ -129,17 +158,52 @@ export default function Contact() {
             </motion.button>
           </form>
 
-          {status && (
-            <p
-              className={`mt-3 text-sm ${
-                status.type === "ok"
-                  ? "text-amber-500"
-                  : "text-red-500 font-medium"
-              }`}
-            >
-              {status.msg}
-            </p>
-          )}
+          <div className="mt-3 h-10 relative overflow-visible">
+            {status && (
+              <p
+                className={`text-sm ${
+                  status.type === "ok"
+                    ? "text-amber-500"
+                    : "text-red-500 font-medium"
+                }`}
+              >
+                {status.msg}
+              </p>
+            )}
+
+            <AnimatePresence>
+              {showPlane && (
+                <motion.div
+                  initial={{ opacity: 0, x: -50, y: 20, rotate: -30 }}
+                  animate={{
+                    opacity: 1,
+                    x: 250,
+                    y: -100,
+                    rotate: 20,
+                    scale: 1.2,
+                    transition: { duration: 1.8, ease: "easeOut" },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    x: 300,
+                    y: -150,
+                    rotate: 45,
+                    transition: { duration: 0.5 },
+                  }}
+                  className="absolute left-0 bottom-0"
+                >
+                  <Send
+                    size={32}
+                    className={`${
+                      theme === "dark"
+                        ? "text-amber-400 drop-shadow-[0_0_8px_#fbbf24]"
+                        : "text-amber-500 drop-shadow-[0_0_6px_#f59e0b]"
+                    }`}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
 
         <motion.div
@@ -210,7 +274,6 @@ export default function Contact() {
         </motion.div>
       </section>
 
-      {/* KARTA */}
       <motion.section
         {...fadeUp(0.5)}
         className="container mx-auto max-w-6xl px-4 pb-28"
