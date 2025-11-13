@@ -1,23 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useTheme } from "../../context/ThemeContext";
+import { motion } from "framer-motion";
 
 export function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
+  const isHome = location.pathname === "/";
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav
+    <motion.nav
       role="navigation"
       aria-label="Huvudmeny"
-      className={`sticky top-0 z-50 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.08)] border-b transition-colors duration-300 ${
-        theme === "light"
-          ? "bg-[#faf7f2]/95 border-[#c8a23d]"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.4, ease: "easeOut" }}
+      className={`sticky top-0 z-50 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.08)]
+      border-b transition-all duration-300
+      ${
+        isHome && !scrolled
+          ? "bg-transparent border-transparent"
+          : theme === "light"
+          ? "bg-[#f8f8f8]/95 border-[#c8a23d]"
           : "bg-black/80 border-[#d4af37]"
       }`}
     >
@@ -38,29 +55,40 @@ export function NavBar() {
           >
             <div
               className={`relative flex h-14 w-14 items-center justify-center rounded-full transition-colors duration-500 ${
-                theme === "light"
-                  ? "bg-[#faf7f2]" // matchar navbarens färg
+                isHome && !scrolled
+                  ? "bg-transparent"
+                  : theme === "light"
+                  ? "bg-[#f8f8f8]"
                   : "bg-[#111]"
               } hover:bg-opacity-90`}
             >
-<img
-  src={
-    theme === "light"
-      ? "/images/nav/EdenStudioLight.png"
-      : "/images/nav/EdenStudioDark.png"
-  }
-  alt="Eden Studio Barbershop logotyp"
-  className={`h-12 w-12 rounded-full transition-transform duration-300 hover:scale-110 ${
-    theme === "light"
-      ? "mix-blend-multiply"
-      : "mix-blend-normal drop-shadow-[0_0_6px_rgba(212,175,55,0.3)]"
-  }`}
-/>
-
+              <motion.img
+                initial={{ opacity: 0, scale: 0.88 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                src={
+                  isHome && !scrolled
+                    ? "/images/nav/EdenStudioDark.png"
+                    : theme === "light"
+                    ? "/images/nav/EdenStudioLight.png"
+                    : "/images/nav/EdenStudioDark.png"
+                }
+                alt="Eden Studio Barbershop logotyp"
+                className={`h-12 w-12 rounded-full transition-transform duration-300 hover:scale-110 ${
+                  theme === "light"
+                    ? "mix-blend-multiply"
+                    : "mix-blend-normal drop-shadow-[0_0_6px_rgba(212,175,55,0.3)]"
+                }`}
+              />
             </div>
+
             <span
               className={`text-xl font-semibold transition-colors ${
-                theme === "light" ? "text-[#1f1f1f]" : "text-[#d4af37]"
+                isHome && !scrolled
+                  ? "text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]"
+                  : theme === "light"
+                  ? "text-[#1f1f1f]"
+                  : "text-[#d4af37]"
               }`}
             >
               Eden Studio Barbershop
@@ -68,7 +96,12 @@ export function NavBar() {
           </Link>
 
           <div className="hidden md:block">
-            <div className="flex items-center gap-8">
+            <motion.div
+              className="flex items-center gap-8"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 1.1, ease: "easeOut" }}
+            >
               {[
                 { to: "/", label: "Startsida" },
                 { to: "/services", label: "Tjänster" },
@@ -81,17 +114,25 @@ export function NavBar() {
                   aria-current={
                     location.pathname === item.to ? "page" : undefined
                   }
-                  className={`relative font-bold font-mono text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
-                  after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:origin-center after:transition-all after:duration-300 hover:after:w-full
+                  className={`relative font-bold font-mono text-sm transition-colors
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
+                  after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1
+                  after:h-[2px] after:w-0 after:origin-center after:transition-all after:duration-300 hover:after:w-full
+                  
                   ${
-                    theme === "light"
-                      ? "text-[#1f1f1f] hover:text-[#666] after:bg-[linear-gradient(90deg,#bbb,#fff,#bbb)]"
-                      : "text-white hover:text-[#d4af37] after:bg-[#e6b800]"
+                    isHome && !scrolled
+                      ? "text-white hover:text-gray-200 after:bg-white"
+                      : theme === "light"
+                      ? "text-[#1f1f1f] hover:text-[#666] after:bg-[#a8a8a8]"
+                      : "text-white hover:text-[#d4af37] after:bg-[#d4af37]"
                   }
+
                   ${
                     location.pathname === item.to
-                      ? theme === "light"
-                        ? "after:w-full after:bg-[linear-gradient(90deg,#ccc,#fff,#ccc)]"
+                      ? isHome && !scrolled
+                        ? "after:w-full after:bg-white"
+                        : theme === "light"
+                        ? "after:w-full after:bg-[#a8a8a8]"
                         : "after:w-full after:bg-[#d4af37]"
                       : ""
                   }`}
@@ -99,7 +140,7 @@ export function NavBar() {
                   {item.label}
                 </Link>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           <div className="hidden md:flex items-center gap-4">
@@ -117,11 +158,14 @@ export function NavBar() {
                   ? "Aktivera mörkt tema"
                   : "Aktivera ljust tema"
               }
-              className={`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017] ${
-                theme === "light"
-                  ? "text-gray-600 hover:bg-gray-100"
-                  : "text-white hover:bg-[#1a1a1a]"
-              }`}
+              className={`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
+                ${
+                  isHome && !scrolled
+                    ? "text-white"
+                    : theme === "light"
+                    ? "text-gray-600 hover:bg-gray-100"
+                    : "text-white hover:bg-[#1a1a1a]"
+                }`}
             >
               {theme === "light" ? (
                 <Moon className="h-5 w-5 text-[#6b7b8d]" aria-hidden="true" />
@@ -132,11 +176,26 @@ export function NavBar() {
 
             <Link to="/kontakt">
               <Button
-                className={`font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017] transition-colors ${
-                  theme === "light"
-                    ? "bg-gradient-to-r from-[#d4d4d4] via-[#f2f2f2] to-[#d4d4d4] text-black hover:brightness-110 shadow-[0_0_12px_rgba(200,200,200,0.3)]"
-                    : "bg-[#d4af37] hover:bg-yellow-500 text-black shadow-[0_0_10px_rgba(212,175,55,0.3)]"
-                }`}
+                className={`
+    relative overflow-hidden font-semibold transition-all duration-300
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
+
+    ${
+      isHome && !scrolled
+        ? "bg-[#d4af37] text-black"
+        : theme === "light"
+        ? "bg-[#fff] text-black shadow-[0_0_8px_rgba(0,0,0,0.1)]"
+        : "bg-[#d4af37]/90 text-black shadow-[0_0_12px_rgba(212,175,55,0.35)]"
+    }
+
+    rounded-lg px-5 py-2
+    border border-transparent
+    hover:border-amber-400 hover:shadow-[0_0_12px_rgba(212,175,55,0.55)]
+    hover:scale-[1.04]
+    before:absolute before:inset-0 before:-z-10 before:rounded-lg
+    before:bg-gradient-to-r before:from-amber-300/20 before:to-yellow-400/20
+    hover:brightness-110
+  `}
               >
                 BOKA TID
               </Button>
@@ -152,11 +211,14 @@ export function NavBar() {
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
               onClick={() => setIsOpen(!isOpen)}
-              className={`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017] ${
-                theme === "light"
-                  ? "text-gray-900 hover:bg-gray-100"
-                  : "text-white hover:bg-[#1a1a1a]"
-              }`}
+              className={`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
+                ${
+                  isHome && !scrolled
+                    ? "text-white hover:bg-black/20"
+                    : theme === "light"
+                    ? "text-gray-900 hover:bg-gray-100"
+                    : "text-white hover:bg-[#1a1a1a]"
+                }`}
             >
               {isOpen ? (
                 <X className="h-6 w-6" aria-hidden="true" />
@@ -175,7 +237,7 @@ export function NavBar() {
           aria-label="Mobil meny"
           className={`md:hidden border-t backdrop-blur-sm ${
             theme === "light"
-              ? "border-gray-200 bg-[#faf7f2]/95"
+              ? "border-gray-200 bg-[#f8f8f8]/95"
               : "border-[#d4af37] bg-black/95"
           }`}
         >
@@ -192,11 +254,13 @@ export function NavBar() {
                   ? "Växla till mörkt tema"
                   : "Växla till ljust tema"
               }
-              className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-base transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017] ${
-                theme === "light"
-                  ? "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  : "text-gray-300 hover:bg-[#1a1a1a]"
-              }`}
+              className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-base transition
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
+                ${
+                  theme === "light"
+                    ? "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    : "text-gray-300 hover:bg-[#1a1a1a]"
+                }`}
             >
               {theme === "light" ? (
                 <>
@@ -222,15 +286,18 @@ export function NavBar() {
                 to={i.to}
                 role="menuitem"
                 onClick={() => setIsOpen(false)}
-                className={`block rounded-md px-3 py-2 text-base transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017] ${
-                  theme === "light"
-                    ? "text-gray-700 hover:text-[#666]"
-                    : "text-white hover:text-[#d4af37]"
-                } ${
-                  location.pathname === i.to
-                    ? "font-semibold underline underline-offset-4"
-                    : ""
-                }`}
+                className={`block rounded-md px-3 py-2 text-base transition
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
+                  ${
+                    theme === "light"
+                      ? "text-gray-700 hover:text-[#666]"
+                      : "text-white hover:text-[#d4af37]"
+                  }
+                  ${
+                    location.pathname === i.to
+                      ? "font-semibold underline underline-offset-4"
+                      : ""
+                  }`}
               >
                 {i.label}
               </Link>
@@ -238,11 +305,23 @@ export function NavBar() {
 
             <Link to="/kontakt" onClick={() => setIsOpen(false)}>
               <Button
-                className={`w-full font-semibold mb-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4af37] ${
-                  theme === "light"
-                    ? "bg-gradient-to-r from-[#d4d4d4] via-[#f2f2f2] to-[#d4d4d4] text-black hover:brightness-110 shadow-[0_0_12px_rgba(200,200,200,0.3)]"
-                    : "bg-[#d4af37] hover:bg-yellow-500 text-black"
-                }`}
+                className={`
+    relative w-full font-semibold mb-2 rounded-lg px-5 py-2
+    transition-all duration-300
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#d4a017]
+
+    ${
+      theme === "light"
+        ? "bg-white text-black shadow-[0_0_8px_rgba(0,0,0,0.1)]"
+        : "bg-[#d4af37]/90 text-black shadow-[0_0_12px_rgba(212,175,55,0.35)]"
+    }
+
+    border border-transparent
+    hover:border-amber-400 hover:shadow-[0_0_14px_rgba(212,175,55,0.55)]
+    hover:scale-[1.04]
+    before:absolute before:inset-0 before:-z-10 before:rounded-lg
+    before:bg-gradient-to-r before:from-amber-300/20 before:to-yellow-400/20
+  `}
               >
                 Boka tid
               </Button>
@@ -250,6 +329,6 @@ export function NavBar() {
           </div>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 }

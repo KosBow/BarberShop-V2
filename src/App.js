@@ -13,18 +13,23 @@ function App() {
     <ThemeProvider>
       <Router>
         <NavBar />
+
         <div className="bg-black min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
+
             <Route
               path="/kontakt"
               element={
-                <GoogleReCaptchaProvider reCaptchaKey="6LcIIAgsAAAAACzvk3O5rNZ34huZd0OOzhLO8PGF">
+                <GoogleReCaptchaProvider
+                  reCaptchaKey={process.env.REACT_APP_RECAPTCHA_KEY}
+                >
                   <Contact />
                 </GoogleReCaptchaProvider>
               }
             />
+
             <Route path="/om-oss" element={<About />} />
           </Routes>
         </div>

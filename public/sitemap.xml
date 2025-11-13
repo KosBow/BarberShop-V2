@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
+  <url>
+    <loc>https://edenstudiobarbershop.se/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://edenstudiobarbershop.se/services</loc>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://edenstudiobarbershop.se/kontakt</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://edenstudiobarbershop.se/om-oss</loc>
+    <priority>0.80</priority>
+  </url>
+</urlset>
