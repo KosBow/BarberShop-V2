@@ -49,4 +49,5 @@ Smooth fade-up, blur, and transition animations powered by Framer Motion.
 ## 👤 Developer
 
 Built by Khosrat A.
+
 Portfolio: https://khosrat-portfolio.vercel.app/
