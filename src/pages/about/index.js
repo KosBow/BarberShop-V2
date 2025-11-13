@@ -5,9 +5,9 @@ export default function About() {
   const { theme } = useTheme();
 
   const fadeUp = (delay = 0) => ({
-    initial: { opacity: 0, y: 40 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 1.1, delay, ease: "easeOut" },
+    initial: { opacity: 0, y: 40, filter: "blur(6px)" },
+    whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+    transition: { duration: 1.2, delay, ease: "easeOut" },
     viewport: { once: true },
   });
 
@@ -42,14 +42,18 @@ export default function About() {
       </motion.section>
 
       <section className="container mx-auto max-w-6xl px-4 pb-20 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        
         <motion.div {...fadeUp(0.2)} className="relative">
           <div className="absolute -inset-2 rounded-xl bg-amber-400/10 blur-xl pointer-events-none" />
           <img
             src={imageAbout}
             alt="Barberare klipper kund"
-            className={`rounded-xl shadow-lg object-cover w-full h-full border ${
-              theme === "dark" ? "border-amber-500/20" : "border-amber-400/30"
-            }`}
+            className={`rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.12)] object-cover w-full h-full border transition-all duration-200
+              ${
+                theme === "dark"
+                  ? "border-amber-500/20 shadow-[0_0_20px_rgba(212,175,55,0.08)]"
+                  : "border-amber-400/30 shadow-[0_0_20px_rgba(212,175,55,0.15)]"
+              }`}
           />
         </motion.div>
 
@@ -57,6 +61,7 @@ export default function About() {
           <h2 className="text-2xl font-semibold text-amber-400">
             Stil, kvalitet och personlig service
           </h2>
+
           <p
             className={`leading-relaxed ${
               theme === "dark" ? "text-gray-300" : "text-gray-700"
@@ -67,6 +72,7 @@ export default function About() {
             känslan som resultatet. Hos oss möter du barberare med passion för
             hantverket och öga för detaljer.
           </p>
+
           <p
             className={`leading-relaxed ${
               theme === "dark" ? "text-gray-300" : "text-gray-700"
@@ -79,15 +85,17 @@ export default function About() {
           </p>
 
           <div
-            className={`rounded-xl p-5 mt-6 border transition-colors duration-500 ${
-              theme === "dark"
-                ? "bg-neutral-900/60 border-amber-500/20"
-                : "bg-gray-100 border-amber-400/30"
-            }`}
+            className={`rounded-xl p-5 mt-6 border transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.12)]
+              ${
+                theme === "dark"
+                  ? "bg-neutral-900/60 border-amber-500/20 shadow-[0_0_20px_rgba(212,175,55,0.08)]"
+                  : "bg-gray-100 border-amber-400/30 shadow-[0_0_20px_rgba(212,175,55,0.15)]"
+              }`}
           >
             <h3 className="text-lg font-semibold mb-2 text-amber-400">
               Vårt löfte till dig
             </h3>
+
             <ul
               className={`list-disc ml-5 space-y-1 marker:text-amber-400 ${
                 theme === "dark" ? "text-gray-400" : "text-gray-600"

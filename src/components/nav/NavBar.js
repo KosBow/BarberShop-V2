@@ -34,7 +34,7 @@ export function NavBar() {
         isHome && !scrolled
           ? "bg-transparent border-transparent"
           : theme === "light"
-          ? "bg-[#f8f8f8]/95 border-[#c8a23d]"
+          ? "bg-[#f8f8f8]/95 border-[#d4af37]"
           : "bg-black/80 border-[#d4af37]"
       }`}
     >
@@ -269,7 +269,14 @@ export function NavBar() {
                 </>
               ) : (
                 <>
-                  <Sun className="h-5 w-5" aria-hidden="true" />
+                  <Sun
+  className={
+    theme === "light"
+      ? "h-5 w-5 text-gray-700"
+      : "h-5 w-5 text-white drop-shadow-[0_0_6px_#fbbf24]"
+  }
+/>
+
                   Light Mode
                 </>
               )}

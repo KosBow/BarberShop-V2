@@ -21,12 +21,10 @@ export default function Services() {
   const [isFacebookOpen, setFacebookOpen] = useState(false);
 
   const fadeUp = (delay = 0) => ({
-    hidden: { opacity: 0, y: 40 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1, delay, ease: "easeOut" },
-    },
+    initial: { opacity: 0, y: 40, filter: "blur(6px)" },
+    whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+    transition: { duration: 1.2, delay, ease: "easeOut" },
+    viewport: { once: true },
   });
 
   const services = [
@@ -89,12 +87,11 @@ export default function Services() {
       }`}
     >
       <motion.section
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        variants={fadeUp(0)}
-        className="container mx-auto max-w-6xl px-4 pt-16 pb-6 text-center"
+        {...fadeUp(0)}
+        className="relative container mx-auto max-w-6xl px-4 pt-16 pb-6 text-center"
       >
+        <div className="absolute left-1/2 -translate-x-1/2 top-12 w-72 h-72 bg-amber-400/10 blur-3xl rounded-full pointer-events-none" />
+
         <h1 className="text-4xl font-bold">Våra Tjänster</h1>
         <p
           className={`mt-2 ${
@@ -111,28 +108,17 @@ export default function Services() {
         {services.map((service, index) => (
           <motion.div
             key={service.title}
-            variants={fadeUp(index * 0.15)}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
+            {...fadeUp(index * 0.15)}
             whileHover={{
               scale: 1.05,
               y: -5,
-              boxShadow:
+            }}
+            className={`relative rounded-xl p-8 border transition-all duration-100 ease-out shadow-[0_0_20px_rgba(212,175,55,0.12)]
+              ${
                 theme === "dark"
-                  ? "0px 10px 25px rgba(255, 200, 0, 0.08)"
-                  : "0px 10px 25px rgba(255, 196, 0, 0.15)",
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 220,
-              damping: 18,
-            }}
-            className={`rounded-xl p-8 border ${
-              theme === "dark"
-                ? "bg-neutral-900/60 border-amber-500/20"
-                : "bg-gray-50 border-amber-200"
-            } flex flex-col items-center text-center transition-all duration-500 ease-out`}
+                  ? "bg-neutral-900/60 border-amber-500/20 shadow-[0_0_20px_rgba(212,175,55,0.08)]"
+                  : "bg-gray-100 border-amber-400/30 shadow-[0_0_20px_rgba(212,175,55,0.15)]"
+              } flex flex-col items-center text-center`}
           >
             {service.icon}
             <h3
@@ -154,10 +140,7 @@ export default function Services() {
       </section>
 
       <motion.section
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        variants={fadeUp(0.2)}
+        {...fadeUp(0.2)}
         className="container mx-auto max-w-6xl px-4 pb-28 text-center"
       >
         <h2
@@ -169,17 +152,15 @@ export default function Services() {
         </h2>
 
         <div
-          className={`rounded-xl p-12 border transition-colors duration-500 ${
-            theme === "dark"
-              ? "bg-neutral-900/60 border-amber-500/20"
-              : "bg-gray-50 border-amber-200"
-          }`}
+          className={`rounded-xl p-12 border transition-colors duration-500
+            ${
+              theme === "dark"
+                ? "bg-neutral-900/60 border-amber-500/20 shadow-[0_0_20px_rgba(212,175,55,0.08)]"
+                : "bg-gray-100 border-amber-400/30 shadow-[0_0_20px_rgba(212,175,55,0.15)]"
+            }`}
         >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            {...fadeUp(0.4)}
             className="relative mb-8"
           >
             <h3
@@ -203,11 +184,12 @@ export default function Services() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setInstagramOpen(true)}
-              className={`flex items-center gap-3 px-6 md:px-8 py-3 rounded-lg font-semibold text-black shadow-lg transition ${
-                theme === "dark"
-                  ? "bg-amber-400 hover:bg-amber-300"
-                  : "bg-amber-400 hover:bg-amber-500"
-              }`}
+              className={`flex items-center gap-3 px-6 md:px-8 py-3 rounded-lg font-semibold text-black shadow-lg transition
+                ${
+                  theme === "dark"
+                    ? "bg-amber-400 hover:bg-amber-300"
+                    : "bg-amber-400 hover:bg-amber-500"
+                }`}
             >
               <InstagramIcon className="w-5 h-5" />
               <span className="hidden md:inline">Instagram</span>
@@ -217,11 +199,12 @@ export default function Services() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setFacebookOpen(true)}
-              className={`flex items-center gap-3 px-6 md:px-8 py-3 rounded-lg font-semibold text-black shadow-lg transition ${
-                theme === "dark"
-                  ? "bg-amber-400 hover:bg-amber-300"
-                  : "bg-amber-400 hover:bg-amber-500"
-              }`}
+              className={`flex items-center gap-3 px-6 md:px-8 py-3 rounded-lg font-semibold text-black shadow-lg transition
+                ${
+                  theme === "dark"
+                    ? "bg-amber-400 hover:bg-amber-300"
+                    : "bg-amber-400 hover:bg-amber-500"
+                }`}
             >
               <FacebookIcon className="w-5 h-5" />
               <span className="hidden md:inline">Facebook</span>
