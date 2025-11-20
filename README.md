@@ -1,70 +1,57 @@
-# Getting Started with Create React App
-abc //
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ✂️ Eden Studio Barbershop
 
-## Available Scripts
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/FramerMotion-000000?logo=framer&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?logo=react-router&logoColor=white)
+![EmailJS](https://img.shields.io/badge/EmailJS-blue?logo=maildotru&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-black?logo=vercel&logoColor=white)
 
-In the project directory, you can run:
+Eden Studio Barbershop is a modern React web application built with  
+Tailwind CSS, Framer Motion, React Router v6, EmailJS, Google reCAPTCHA v3,  
+and a custom Dark/Light mode using Context API.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🌐 Live Demo  
+https://edenstudiobarber.vercel.app/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 Tech Stack  
+React · Tailwind CSS · Framer Motion · React Router · EmailJS · reCAPTCHA v3 · Vercel
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 📦 Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🔐 Environment Variables (.env)
+```txt
+REACT_APP_EMAILJS_SERVICE_ID=xxx
+REACT_APP_EMAILJS_TEMPLATE_ID=xxx
+REACT_APP_EMAILJS_PUBLIC_KEY=xxx
+REACT_APP_RECAPTCHA_KEY=xxx
+```
+## 📬 Contact Form
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+EmailJS + Google reCAPTCHA v3 for secure and validated form submissions.
+Auto-reply enabled for customers and admin notifications include metadata.
 
-### `npm run eject`
+## 🌀 Animations
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Smooth fade-up, blur, and transition animations powered by Framer Motion.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 👥 Contributors
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Khosrat A.** – Developer, UI/UX, Deployment  
+  🔗 Portfolio: https://khosrat-portfolio.vercel.app  
+  🔗 GitHub: https://github.com/KosBow
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **FrogTheJam** – Dev Support  
+  🔗 https://github.com/fueshot
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
