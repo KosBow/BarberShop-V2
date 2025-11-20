@@ -377,7 +377,7 @@ export default function Contact() {
               {
                 icon: <MapPin size={18} className="text-amber-400" />,
                 title: "Adress",
-                value: "Sturegatan 5, 582 23 Linköping",
+                value: "Sturegatan 5, 582 21 Linköping",
               },
               {
                 icon: <Phone size={18} className="text-amber-400" />,
