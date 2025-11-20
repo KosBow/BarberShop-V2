@@ -46,7 +46,12 @@ Auto-reply enabled for customers and admin notifications include metadata.
 
 Smooth fade-up, blur, and transition animations powered by Framer Motion.
 
-## 👤 Developer
+## 👥 Contributors
 
-Built by Khosrat A.
-Portfolio: https://khosrat-portfolio.vercel.app/
+- **Khosrat A.** – Developer, UI/UX, Deployment  
+  🔗 Portfolio: https://khosrat-portfolio.vercel.app  
+  🔗 GitHub: https://github.com/KosBow
+
+- **FrogTheJam** – Dev Support  
+  🔗 https://github.com/fueshot
+
