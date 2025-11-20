@@ -53,5 +53,5 @@ Smooth fade-up, blur, and transition animations powered by Framer Motion.
   🔗 GitHub: https://github.com/KosBow
 
 - **FrogTheJam** – Dev Support  
-  🔗 https://github.com/fueshot
+  🔗 https://github.com/flueshot
 
