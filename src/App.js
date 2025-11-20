@@ -6,18 +6,30 @@ import Home from "./pages/home";
 import Services from "./pages/services";
 import Contact from "./pages/contact";
 import About from "./pages/about";
-
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 function App() {
   return (
     <ThemeProvider>
       <Router>
-          <NavBar />
+        <NavBar />
+
         <div className="bg-black min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/kontakt" element={<Contact />} />
+
+            <Route
+              path="/kontakt"
+              element={
+                <GoogleReCaptchaProvider
+                  reCaptchaKey={process.env.REACT_APP_RECAPTCHA_KEY}
+                >
+                  <Contact />
+                </GoogleReCaptchaProvider>
+              }
+            />
+
             <Route path="/om-oss" element={<About />} />
           </Routes>
         </div>
@@ -27,4 +39,3 @@ function App() {
 }
 
 export default App;
-

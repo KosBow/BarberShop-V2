@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.grecaptcha-badge {
+  z-index: 50;
+  bottom: 10px !important;
+  right: 10px !important;
+  transform: scale(0.85);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+.grecaptcha-badge:hover {
+  opacity: 1;
+}
