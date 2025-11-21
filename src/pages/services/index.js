@@ -90,8 +90,8 @@ export default function Services() {
         {...fadeUp(0)}
         className="
           relative container mx-auto max-w-6xl px-4 
-          pt-24  /* spacing fixat här – mer luft ovanför titeln */
-          pb-10 
+          pt-16  
+          pb-6 
           text-center
         "
       >

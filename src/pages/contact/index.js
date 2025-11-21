@@ -435,11 +435,17 @@ export default function Contact() {
       >
         <h3 className="text-lg font-semibold mb-3">Hitta hit</h3>
 
-        <div
-          className={`h-[380px] rounded-xl overflow-hidden border transition-colors duration-500 ${
-            theme === "dark" ? "border-amber-500/20" : "border-amber-400/30"
-          }`}
-        >
+        <div className="h-1 w-16 bg-amber-400 rounded-full mb-6"></div>
+
+<div
+  className={`h-[380px] rounded-xl overflow-hidden border-2 transition-colors duration-500
+    ${
+      theme === "dark"
+        ? "border-amber-400/60 shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+        : "border-amber-400/50 shadow-[0_0_12px_rgba(212,175,55,0.15)]"
+    }`}
+>
+
           <iframe
             title="Eden Studio Barbershop - Karta"
             loading="lazy"

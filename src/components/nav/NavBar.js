@@ -184,6 +184,32 @@ export function NavBar() {
           }`}
         >
           <div className="space-y-1 px-4 pb-3 pt-2">
+            <button
+              onClick={toggleTheme}
+              aria-label={
+                theme === "light"
+                  ? "Växla till mörkt tema"
+                  : "Växla till ljust tema"
+              }
+              className={`
+    flex w-full items-center gap-3 rounded-md px-3 py-2 text-base transition
+    ${
+      theme === "light"
+        ? "bg-white text-neutral-700 hover:bg-gray-100"
+        : "bg-neutral-800 text-amber-300 hover:bg-neutral-700"
+    }
+  `}
+            >
+              {theme === "light" ? (
+                <Moon className="h-6 w-6" />
+              ) : (
+                <Sun className="h-6 w-6 drop-shadow-[0_0_4px_rgba(255,200,80,0.8)]" />
+              )}
+              <span className="font-semibold">
+                {theme === "light" ? "Dark Mode" : "Light Mode"}
+              </span>
+            </button>
+
             {[
               { to: "/", label: "Startsida" },
               { to: "/services", label: "Tjänster" },
