@@ -5,8 +5,8 @@ export default function About() {
   const { theme } = useTheme();
 
   const fadeUp = (delay = 0) => ({
-    initial: { opacity: 0, y: 40, filter: "blur(6px)" },
-    whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+    initial: { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
     transition: { duration: 1.2, delay, ease: "easeOut" },
     viewport: { once: true },
   });
@@ -30,6 +30,7 @@ export default function About() {
         <h1 className="relative text-4xl font-bold">
           Om Eden Studio Barbershop
         </h1>
+
         <p
           className={`mt-2 max-w-2xl mx-auto ${
             theme === "dark" ? "text-gray-400" : "text-gray-600"
@@ -38,6 +39,7 @@ export default function About() {
           En modern barbershop i Linköping med fokus på stil, kvalitet och en
           personlig upplevelse.
         </p>
+
         <div className="h-1 w-14 bg-amber-400 rounded-full mx-auto mt-4" />
       </motion.section>
 
@@ -45,6 +47,7 @@ export default function About() {
         
         <motion.div {...fadeUp(0.2)} className="relative">
           <div className="absolute -inset-2 rounded-xl bg-amber-400/10 blur-xl pointer-events-none" />
+
           <img
             src={imageAbout}
             alt="Barberare klipper kund"

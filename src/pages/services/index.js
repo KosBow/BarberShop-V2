@@ -21,8 +21,8 @@ export default function Services() {
   const [isFacebookOpen, setFacebookOpen] = useState(false);
 
   const fadeUp = (delay = 0) => ({
-    initial: { opacity: 0, y: 40, filter: "blur(6px)" },
-    whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+    initial: { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
     transition: { duration: 1.2, delay, ease: "easeOut" },
     viewport: { once: true },
   });
@@ -88,7 +88,12 @@ export default function Services() {
     >
       <motion.section
         {...fadeUp(0)}
-        className="relative container mx-auto max-w-6xl px-4 pt-16 pb-6 text-center"
+        className="
+          relative container mx-auto max-w-6xl px-4 
+          pt-16  
+          pb-6 
+          text-center
+        "
       >
         <div className="absolute left-1/2 -translate-x-1/2 top-12 w-72 h-72 bg-amber-400/10 blur-3xl rounded-full pointer-events-none" />
 
@@ -104,7 +109,7 @@ export default function Services() {
         <div className="h-1 w-14 bg-amber-400 rounded-full mx-auto mt-4" />
       </motion.section>
 
-      <section className="container mx-auto max-w-6xl px-4 pb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="container mx-auto max-w-6xl px-4 pb-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service, index) => (
           <motion.div
             key={service.title}
