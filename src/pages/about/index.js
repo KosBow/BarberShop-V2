@@ -4,7 +4,6 @@ import { useTheme } from "../../context/ThemeContext";
 export default function About() {
   const { theme } = useTheme();
 
-  // Blur borttaget
   const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 40 },
     whileInView: { opacity: 1, y: 0 },
